@@ -1,4 +1,4 @@
-package runner
+package runner //nolint:testpackage // white-box tests for unexported run and newLogger
 
 import (
 	"bytes"
