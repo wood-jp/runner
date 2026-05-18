@@ -8,8 +8,28 @@ lint:
     go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
     golangci-lint run ./...
 
+# Run the go vulnerability checker
+vuln:
+    go install golang.org/x/vuln/cmd/govulncheck@latest
+    govulncheck ./...
+
 # Tidy up
 tidy:
     go mod tidy
     go fix ./...
     go fmt ./...
+
+# Run the server example
+example:
+    go run ./examples/server
+
+# Actionlint
+actionlint:
+    go install github.com/rhysd/actionlint/cmd/actionlint@latest
+    actionlint
+    @if command -v zizmor > /dev/null 2>&1; then \
+        zizmor .github/workflows/; \
+    else \
+        echo "zizmor is not installed. Install it to enable Actions security linting:"; \
+        echo "  https://docs.zizmor.sh/installation/"; \
+    fi
